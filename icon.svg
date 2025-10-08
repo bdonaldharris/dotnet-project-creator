@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#512BD4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7B3FE4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#68217A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#512BD4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded square background -->
+  <rect width="128" height="128" rx="24" fill="url(#bgGradient)"/>
+  
+  <!-- .NET logo inspired circle -->
+  <circle cx="42" cy="42" r="16" fill="#FFFFFF" opacity="0.9"/>
+  <circle cx="42" cy="42" r="10" fill="url(#accentGradient)"/>
+  
+  <!-- Plus symbol for "creator" -->
+  <g transform="translate(78, 78)">
+    <!-- Horizontal bar -->
+    <rect x="-18" y="-4" width="36" height="8" rx="3" fill="#FFFFFF"/>
+    <!-- Vertical bar -->
+    <rect x="-4" y="-18" width="8" height="36" rx="3" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- Document/file icon -->
+  <g transform="translate(85, 35)">
+    <path d="M -10 -15 L -10 15 L 10 15 L 10 -8 L 3 -15 Z" 
+          fill="#FFFFFF" opacity="0.85"/>
+    <path d="M 3 -15 L 3 -8 L 10 -8" 
+          fill="url(#accentGradient)" opacity="0.6"/>
+    <!-- Code brackets -->
+    <text x="-5" y="5" font-family="monospace" font-size="10" font-weight="bold" fill="url(#accentGradient)">&lt;/&gt;</text>
+  </g>
+  
+  <!-- Subtle grid pattern overlay for tech feel -->
+  <g opacity="0.08">
+    <line x1="32" y1="0" x2="32" y2="128" stroke="#FFFFFF" stroke-width="0.5"/>
+    <line x1="64" y1="0" x2="64" y2="128" stroke="#FFFFFF" stroke-width="0.5"/>
+    <line x1="96" y1="0" x2="96" y2="128" stroke="#FFFFFF" stroke-width="0.5"/>
+    <line x1="0" y1="32" x2="128" y2="32" stroke="#FFFFFF" stroke-width="0.5"/>
+    <line x1="0" y1="64" x2="128" y2="64" stroke="#FFFFFF" stroke-width="0.5"/>
+    <line x1="0" y1="96" x2="128" y2="96" stroke="#FFFFFF" stroke-width="0.5"/>
+  </g>
+</svg>

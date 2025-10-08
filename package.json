@@ -4,20 +4,36 @@
   "description": "Visual .NET project creation with templates and configuration",
   "version": "1.2.0",
   "publisher": "bdonaldharris",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bdonaldharris/dotnet-project-creator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bdonaldharris/dotnet-project-creator/issues"
+  },
+  "homepage": "https://github.com/bdonaldharris/dotnet-project-creator#readme",
   "engines": {
     "vscode": "^1.74.0"
   },
   "categories": [
-    "Other",
+    "Programming Languages",
     "Snippets",
-    "Debuggers"
+    "Other"
   ],
   "keywords": [
     "dotnet",
     "csharp",
+    "c#",
     "project",
     "template",
-    "scaffolding"
+    "scaffolding",
+    "blazor",
+    "aspnet",
+    "webapi",
+    "console",
+    "project-creator",
+    "dotnet-cli"
   ],
   "activationEvents": [
     "onView:dotnetProjectCreator",

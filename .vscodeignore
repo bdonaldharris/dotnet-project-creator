@@ -9,3 +9,9 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 node_modules/**
+.git/**
+.github/**
+*.vsix
+DEVELOPMENT.md
+icon.svg
+package-lock.json
