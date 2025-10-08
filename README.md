@@ -59,7 +59,7 @@ Create Console apps, Web APIs, Blazor applications, class libraries, and test pr
 
 1. Open Visual Studio Code
 2. Press `Ctrl+P` (or `Cmd+P` on macOS) to open Quick Open
-3. Type `ext install bdonaldharris.dotnet-project-creator`
+3. Type `ext install notablebit.dotnet-project-creator`
 4. Press Enter
 
 ### From the Marketplace
@@ -418,7 +418,7 @@ This extension is licensed under the [MIT License](LICENSE).
 ### Connect
 
 - 🌐 [GitHub Repository](https://github.com/bdonaldharris/dotnet-project-creator)
-- 📦 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=bdonaldharris.dotnet-project-creator)
+- 📦 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=notablebit.dotnet-project-creator)
 
 ---
 
