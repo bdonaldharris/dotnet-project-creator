@@ -3,7 +3,7 @@
   "displayName": ".NET Project Creator",
   "description": "Visual .NET project creation with templates and configuration",
   "version": "1.0.0",
-  "publisher": "your-publisher-name",
+  "publisher": "bdonaldharris",
   "engines": {
     "vscode": "^1.74.0"
   },
