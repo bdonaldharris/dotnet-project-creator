@@ -71,6 +71,20 @@ This extension contributes the following settings:
 - `dotnetCreator.gitAutoInit`: Automatically initialize Git repository (default: `true`)
 - `dotnetCreator.openAfterCreate`: Open project in new VS Code window after creation (default: `true`)
 
+## Privacy and Telemetry
+
+This extension collects **anonymous usage telemetry** to help improve the user experience. 
+
+**Your privacy is important:**
+- ✅ Respects VS Code's telemetry settings
+- ✅ No personal information collected
+- ✅ All data is anonymous
+- ✅ Currently logs to console only (no external services)
+
+For full details, see [TELEMETRY.md](TELEMETRY.md).
+
+To disable telemetry, turn off telemetry in VS Code settings.
+
 ## Commands
 
 - `dotnetCreator.createProject`: Create a new .NET project

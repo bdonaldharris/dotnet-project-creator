@@ -6,9 +6,13 @@ import { CreateProjectCommand } from './commands/createProject';
 import { OpenTemplateCommand } from './commands/openTemplate';
 import { RefreshTreeCommand } from './commands/refreshTree';
 import { dotnetCli } from './utils/dotnetCli';
+import { telemetry } from './utils/telemetry';
 
 export async function activate(context: vscode.ExtensionContext) {
     console.log('.NET Project Creator extension is now active');
+
+    // Track extension activation (respects VS Code telemetry settings)
+    telemetry.trackActivation();
 
     // Check for .NET SDK installation
     const dotnetInstalled = await dotnetCli.checkInstallation();
@@ -66,6 +70,8 @@ export async function activate(context: vscode.ExtensionContext) {
                 });
 
                 if (selected) {
+                    // Track template viewed
+                    telemetry.trackTemplateViewed(selected.template.id);
                     await openTemplateCommand.execute(selected.template);
                 }
             } catch (error: any) {
@@ -77,6 +83,8 @@ export async function activate(context: vscode.ExtensionContext) {
     const openTemplateCmd = vscode.commands.registerCommand(
         'dotnetCreator.openTemplate',
         async (template) => {
+            // Track template viewed from tree
+            telemetry.trackTemplateViewed(template.id);
             await openTemplateCommand.execute(template);
         }
     );

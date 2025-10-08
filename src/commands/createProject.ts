@@ -7,6 +7,7 @@ import { gitUtils } from '../utils/gitUtils';
 import { FileSystemUtils } from '../utils/fileSystem';
 import { WebviewManager } from '../webview/webviewManager';
 import { vscodeConfigGenerator } from '../utils/vscodeConfig';
+import { telemetry } from '../utils/telemetry';
 
 export class CreateProjectCommand {
     constructor(private webviewManager: WebviewManager) {}
@@ -97,6 +98,15 @@ export class CreateProjectCommand {
                 updateProgress(CreationStepType.COMPLETE, 'completed');
                 progressPanel.dispose();
 
+                // Track successful project creation
+                telemetry.trackProjectCreated({
+                    template: options.templateId,
+                    framework: options.framework,
+                    gitOption: options.gitOption || 'none',
+                    createSolution: options.createSolution || false,
+                    success: true
+                });
+
                 // Show completion panel
                 this.webviewManager.showCompletionPanel(true, workspaceRoot);
 
@@ -121,6 +131,17 @@ export class CreateProjectCommand {
             } catch (error: any) {
                 updateProgress(`Error: ${error.message}`, 'failed');
                 progressPanel.dispose();
+
+                // Track failed project creation
+                telemetry.trackProjectCreated({
+                    template: options.templateId,
+                    framework: options.framework,
+                    gitOption: options.gitOption || 'none',
+                    createSolution: options.createSolution || false,
+                    success: false,
+                    errorType: this.categorizeError(error)
+                });
+
                 this.webviewManager.showCompletionPanel(false, undefined, error.message);
                 vscode.window.showErrorMessage(`Failed to create project: ${error.message}`);
             }
@@ -156,20 +177,40 @@ export class CreateProjectCommand {
         const gitInstalled = await gitUtils.checkInstallation();
         if (!gitInstalled) {
             vscode.window.showWarningMessage('Git is not installed. Skipping Git initialization.');
+            telemetry.trackGitSetup({
+                gitOption: gitOption,
+                success: false,
+                errorType: 'git_not_installed'
+            });
             return;
         }
 
-        // Initialize local repository for all options
-        updateProgress(CreationStepType.INIT_GIT);
-        await gitUtils.initRepository(projectPath);
-        await gitUtils.setBranchName(projectPath, 'main');
-        await gitUtils.initialCommit(projectPath);
+        try {
+            // Initialize local repository for all options
+            updateProgress(CreationStepType.INIT_GIT);
+            await gitUtils.initRepository(projectPath);
+            await gitUtils.setBranchName(projectPath, 'main');
+            await gitUtils.initialCommit(projectPath);
 
-        // Handle remote options
-        if (gitOption === 'github') {
-            await this.handleGitHubSetup(options, projectPath, updateProgress);
-        } else if (gitOption === 'remote') {
-            await this.handleRemoteSetup(options, projectPath, updateProgress);
+            // Handle remote options
+            if (gitOption === 'github') {
+                await this.handleGitHubSetup(options, projectPath, updateProgress);
+            } else if (gitOption === 'remote') {
+                await this.handleRemoteSetup(options, projectPath, updateProgress);
+            }
+
+            // Track successful git setup
+            telemetry.trackGitSetup({
+                gitOption: gitOption,
+                success: true
+            });
+        } catch (error: any) {
+            telemetry.trackGitSetup({
+                gitOption: gitOption,
+                success: false,
+                errorType: this.categorizeError(error)
+            });
+            throw error;
         }
     }
 
@@ -258,6 +299,24 @@ export class CreateProjectCommand {
             if (!isEmpty) {
                 throw new Error(`Directory ${rootPath} already exists and is not empty`);
             }
+        }
+    }
+
+    private categorizeError(error: any): string {
+        const message = error.message?.toLowerCase() || '';
+        
+        if (message.includes('permission') || message.includes('access denied')) {
+            return 'permission_error';
+        } else if (message.includes('not found') || message.includes('does not exist')) {
+            return 'path_error';
+        } else if (message.includes('network') || message.includes('timeout')) {
+            return 'network_error';
+        } else if (message.includes('git')) {
+            return 'git_error';
+        } else if (message.includes('dotnet') || message.includes('sdk')) {
+            return 'dotnet_error';
+        } else {
+            return 'unknown_error';
         }
     }
 }

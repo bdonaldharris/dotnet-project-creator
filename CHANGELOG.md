@@ -2,6 +2,24 @@
 
 All notable changes to the ".NET Project Creator" extension will be documented in this file.
 
+## [1.2.0] - 2025-10-08
+
+### Added
+- **Privacy-First Telemetry**: Anonymous usage analytics to improve the extension
+  - Respects VS Code's telemetry settings (no separate opt-in needed)
+  - Tracks template usage, project creation success/failures, and Git setup
+  - Zero personal information collected (no paths, names, or sensitive data)
+  - Custom templates are anonymized as "custom"
+  - Currently logs to console only (no external services)
+  - Full transparency via TELEMETRY.md documentation
+- Error categorization for better failure tracking
+- Extension activation tracking
+- Template browsing analytics
+
+### Documentation
+- Added comprehensive TELEMETRY.md explaining privacy approach
+- Updated README with telemetry and privacy section
+
 ## [1.1.0] - 2025-10-08
 
 ### Added
