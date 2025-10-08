@@ -1,0 +1,114 @@
+{
+  "console": {
+    "id": "console",
+    "displayName": "Console Applications",
+    "icon": "terminal",
+    "templates": [
+      {
+        "id": "console",
+        "name": "Console App",
+        "description": "A command-line application",
+        "dotnetTemplate": "console",
+        "tags": ["console", "cli"]
+      },
+      {
+        "id": "worker",
+        "name": "Worker Service",
+        "description": "Background service application",
+        "dotnetTemplate": "worker",
+        "tags": ["service", "background"]
+      }
+    ]
+  },
+  "web": {
+    "id": "web",
+    "displayName": "Web Applications",
+    "icon": "globe",
+    "templates": [
+      {
+        "id": "webapi",
+        "name": "Web API",
+        "description": "RESTful web API",
+        "dotnetTemplate": "webapi",
+        "tags": ["api", "rest", "web"]
+      },
+      {
+        "id": "mvc",
+        "name": "MVC Web App",
+        "description": "Model-View-Controller web application",
+        "dotnetTemplate": "mvc",
+        "tags": ["mvc", "web", "ui"]
+      },
+      {
+        "id": "webapp",
+        "name": "Web App (Razor Pages)",
+        "description": "Web application using Razor Pages",
+        "dotnetTemplate": "webapp",
+        "tags": ["razor", "web", "ui"]
+      },
+      {
+        "id": "blazorserver",
+        "name": "Blazor Server App",
+        "description": "Server-side Blazor application",
+        "dotnetTemplate": "blazorserver",
+        "tags": ["blazor", "server", "ui"]
+      },
+      {
+        "id": "blazorwasm",
+        "name": "Blazor WebAssembly App",
+        "description": "Client-side Blazor application",
+        "dotnetTemplate": "blazorwasm",
+        "tags": ["blazor", "wasm", "spa"]
+      }
+    ]
+  },
+  "library": {
+    "id": "library",
+    "displayName": "Libraries",
+    "icon": "library",
+    "templates": [
+      {
+        "id": "classlib",
+        "name": "Class Library",
+        "description": "Reusable class library",
+        "dotnetTemplate": "classlib",
+        "tags": ["library", "dll"]
+      },
+      {
+        "id": "razorclasslib",
+        "name": "Razor Class Library",
+        "description": "Reusable Razor components library",
+        "dotnetTemplate": "razorclasslib",
+        "tags": ["razor", "library", "components"]
+      }
+    ]
+  },
+  "test": {
+    "id": "test",
+    "displayName": "Test Projects",
+    "icon": "beaker",
+    "templates": [
+      {
+        "id": "xunit",
+        "name": "xUnit Test Project",
+        "description": "Unit testing with xUnit framework",
+        "dotnetTemplate": "xunit",
+        "tags": ["test", "xunit", "unit"]
+      },
+      {
+        "id": "nunit",
+        "name": "NUnit Test Project",
+        "description": "Unit testing with NUnit framework",
+        "dotnetTemplate": "nunit",
+        "tags": ["test", "nunit", "unit"]
+      },
+      {
+        "id": "mstest",
+        "name": "MSTest Test Project",
+        "description": "Unit testing with MSTest framework",
+        "dotnetTemplate": "mstest",
+        "tags": ["test", "mstest", "unit"]
+      }
+    ]
+  }
+}
