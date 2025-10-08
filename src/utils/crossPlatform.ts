@@ -15,7 +15,17 @@ export class CrossPlatformExecutor {
     }
 
     async executeCommand(command: string, args: string[], cwd?: string): Promise<string> {
-        const fullCommand = `${command} ${args.join(' ')}`;
+        // Escape arguments that contain spaces or special characters
+        const escapedArgs = args.map(arg => {
+            // If arg contains spaces, quotes, or special chars, wrap in quotes
+            if (arg.includes(' ') || arg.includes('"') || arg.includes("'")) {
+                // Escape existing quotes and wrap in double quotes
+                return `"${arg.replace(/"/g, '\\"')}"`;
+            }
+            return arg;
+        });
+        
+        const fullCommand = `${command} ${escapedArgs.join(' ')}`;
         try {
             const { stdout, stderr } = await execAsync(fullCommand, {
                 cwd: cwd,
