@@ -11,8 +11,10 @@ All notable changes to the ".NET Project Creator" extension will be documented i
   - Better user experience for path selection
 
 ### Changed
+- **Display name changed to ".NET Scaffolder by NotableBit"** for better marketplace visibility
 - Publisher ID changed from `bdonaldharris` to `notablebit` for better branding
 - Updated installation instructions and marketplace links
+- Improved description emphasizing scaffolding capabilities
 
 ## [1.2.0] - 2025-10-08
 

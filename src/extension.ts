@@ -9,7 +9,7 @@ import { dotnetCli } from './utils/dotnetCli';
 import { telemetry } from './utils/telemetry';
 
 export async function activate(context: vscode.ExtensionContext) {
-    console.log('.NET Project Creator extension is now active');
+    console.log('.NET Scaffolder extension is now active');
 
     // Track extension activation (respects VS Code telemetry settings)
     telemetry.trackActivation();
@@ -108,12 +108,12 @@ export async function activate(context: vscode.ExtensionContext) {
     const hasShownWelcome = context.globalState.get('hasShownWelcome', false);
     if (!hasShownWelcome && dotnetInstalled) {
         vscode.window.showInformationMessage(
-            '.NET Project Creator is ready! Click the + icon in the .NET Project Creator view to get started.'
+            '.NET Scaffolder is ready! Click the + icon in the .NET Scaffolder view to get started.'
         );
         context.globalState.update('hasShownWelcome', true);
     }
 }
 
 export function deactivate() {
-    console.log('.NET Project Creator extension is now deactivated');
+    console.log('.NET Scaffolder extension is now deactivated');
 }

@@ -1,11 +1,11 @@
-# .NET Project Creator
+# .NET Scaffolder by NotableBit
 
 [![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/bdonaldharris/dotnet-project-creator)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.74.0+-007ACC.svg)](https://code.visualstudio.com/)
 [![.NET](https://img.shields.io/badge/.NET-6.0%20|%207.0%20|%208.0%20|%209.0-512BD4.svg)](https://dotnet.microsoft.com/)
 
-> **A powerful Visual Studio Code extension that simplifies .NET project creation with an intuitive tree view interface and webview configuration panels.**
+> **Scaffold .NET projects with ease! An intuitive VS Code extension featuring tree view templates, interactive configuration, and hybrid Git integration.**
 
 Create Console apps, Web APIs, Blazor applications, class libraries, and test projects with ease! No more command-line gymnastics—just point, click, and code.
 
@@ -83,7 +83,7 @@ npm run compile
 ### Method 1: Tree View (Recommended)
 
 1. Open the **Explorer** sidebar in VS Code
-2. Locate the **.NET Project Creator** panel
+2. Locate the **.NET Scaffolder** panel
 3. Browse template categories (Console, Web, Libraries, Tests)
 4. Click any template to open the configuration panel
 5. Fill in your project details:
@@ -96,7 +96,7 @@ npm run compile
 ### Method 2: Command Palette
 
 1. Press `Ctrl+Shift+P` / `Cmd+Shift+P`
-2. Type `.NET Project Creator: Create Project`
+2. Type `.NET Scaffolder: Create Project`
 3. Select your template from the quick pick
 4. Configure and create
 
@@ -230,9 +230,9 @@ Access these commands via the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
 
 | Command | Description |
 |---------|-------------|
-| `.NET Project Creator: Create Project` | Create a new .NET project |
-| `.NET Project Creator: Refresh Tree` | Refresh the templates tree view |
-| `.NET Project Creator: Configure Project` | Open configuration for a template |
+| `.NET Scaffolder: Create Project` | Create a new .NET project |
+| `.NET Scaffolder: Refresh Tree` | Refresh the templates tree view |
+| `.NET Scaffolder: Configure Project` | Open configuration for a template |
 
 ---
 

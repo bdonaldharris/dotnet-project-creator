@@ -1,7 +1,7 @@
 {
   "name": "dotnet-project-creator",
-  "displayName": ".NET Project Creator",
-  "description": "Visual .NET project creation with templates and configuration",
+  "displayName": ".NET Scaffolder by NotableBit",
+  "description": "Scaffold .NET projects with templates, Git integration, and interactive configuration",
   "version": "1.3.0",
   "publisher": "notablebit",
   "icon": "icon.png",
@@ -62,9 +62,9 @@
       "explorer": [
         {
           "id": "dotnetProjectCreator",
-          "name": ".NET Project Creator",
+          "name": ".NET Scaffolder",
           "icon": "$(terminal)",
-          "contextualTitle": ".NET Project Creator"
+          "contextualTitle": ".NET Scaffolder"
         }
       ]
     },
@@ -89,7 +89,7 @@
       ]
     },
     "configuration": {
-      "title": ".NET Project Creator",
+      "title": ".NET Scaffolder",
       "properties": {
         "dotnetCreator.defaultProjectPath": {
           "type": "string",
