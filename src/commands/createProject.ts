@@ -6,6 +6,7 @@ import { dotnetCli } from '../utils/dotnetCli';
 import { gitUtils } from '../utils/gitUtils';
 import { FileSystemUtils } from '../utils/fileSystem';
 import { WebviewManager } from '../webview/webviewManager';
+import { vscodeConfigGenerator } from '../utils/vscodeConfig';
 
 export class CreateProjectCommand {
     constructor(private webviewManager: WebviewManager) {}
@@ -67,10 +68,14 @@ export class CreateProjectCommand {
                     await dotnetCli.addProjectToSolution(solutionFile, projectFile);
                 }
 
-                // Step 5: Handle Git based on option
+                // Step 5: Create VS Code configuration
+                updateProgress('Creating VS Code configuration...');
+                await vscodeConfigGenerator.createVSCodeConfig(projectPath, options.projectName);
+
+                // Step 6: Handle Git based on option
                 await this.handleGitSetup(options, projectPath, updateProgress);
 
-                // Step 6: Restore packages
+                // Step 7: Restore packages
                 updateProgress(CreationStepType.RESTORE_PACKAGES);
                 await dotnetCli.restore(projectPath);
 
@@ -102,7 +107,7 @@ export class CreateProjectCommand {
     }
 
     private calculateTotalSteps(options: ProjectCreationOptions): number {
-        let steps = 4; // validate, create dir, create project, restore
+        let steps = 5; // validate, create dir, create project, vscode config, restore
         if (options.createSolution) {
             steps += 2; // create solution, add to solution
         }
