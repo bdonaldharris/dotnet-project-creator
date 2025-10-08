@@ -76,7 +76,7 @@ Standard .NET templates (console, webapi, mvc, etc.) are tracked by name to help
 
 ## Current Implementation
 
-In the current version (1.1.0):
+In the current version (1.3.0):
 
 - Telemetry events are logged to the console in development mode
 - No external telemetry services are integrated
@@ -112,5 +112,5 @@ To disable telemetry for this extension:
 
 ---
 
-**Last Updated:** March 2024  
-**Version:** 1.1.0
+**Last Updated:** October 2024  
+**Version:** 1.3.0

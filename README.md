@@ -1,6 +1,6 @@
 # .NET Project Creator
 
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/bdonaldharris/dotnet-project-creator)
+[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/bdonaldharris/dotnet-project-creator)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.74.0+-007ACC.svg)](https://code.visualstudio.com/)
 [![.NET](https://img.shields.io/badge/.NET-6.0%20|%207.0%20|%208.0%20|%209.0-512BD4.svg)](https://dotnet.microsoft.com/)
@@ -36,6 +36,7 @@ Create Console apps, Web APIs, Blazor applications, class libraries, and test pr
 - 🎯 **Visual Project Selection** - Browse .NET project templates in an organized tree view
 - 🚀 **One-Click Creation** - Create projects with minimal clicks, maximum productivity
 - ⚙️ **Interactive Configuration** - Configure project settings through a user-friendly webview
+- 📂 **Browse Button** - Easy folder picker for selecting project location
 - 📊 **Real-time Progress Tracking** - Watch your project come to life with live updates
 - 🔄 **Cross-Platform** - Works seamlessly on Windows, macOS, and Linux
 
@@ -378,7 +379,11 @@ This extension is licensed under the [MIT License](LICENSE).
 
 ## 📝 Release Notes
 
-### v1.2.0 (Latest)
+### v1.3.0 (Latest)
+- 📂 Browse button for easy project path selection
+- 🏷️ Publisher rebranded to "notablebit"
+
+### v1.2.0
 - ✨ Privacy-first telemetry with anonymous usage analytics
 - 📊 Error tracking and categorization
 - 📖 Comprehensive TELEMETRY.md documentation

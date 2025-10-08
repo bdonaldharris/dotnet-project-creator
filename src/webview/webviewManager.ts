@@ -24,7 +24,7 @@ export class WebviewManager {
             this.currentPanel.webview.html = this.getConfigurationHtml(template);
 
             this.currentPanel.webview.onDidReceiveMessage(
-                message => {
+                async message => {
                     switch (message.command) {
                         case 'submit':
                             resolve(message.data);
@@ -33,6 +33,21 @@ export class WebviewManager {
                         case 'cancel':
                             resolve(undefined);
                             this.currentPanel?.dispose();
+                            break;
+                        case 'browsePath':
+                            const result = await vscode.window.showOpenDialog({
+                                canSelectFiles: false,
+                                canSelectFolders: true,
+                                canSelectMany: false,
+                                openLabel: 'Select Project Location',
+                                title: 'Select Project Location'
+                            });
+                            if (result && result[0]) {
+                                this.currentPanel?.webview.postMessage({
+                                    command: 'setPath',
+                                    path: result[0].fsPath
+                                });
+                            }
                             break;
                     }
                 }
@@ -116,6 +131,25 @@ export class WebviewManager {
             border: 1px solid var(--vscode-input-border);
             border-radius: 2px;
         }
+        .input-with-button {
+            display: flex;
+            gap: 8px;
+        }
+        .input-with-button input {
+            flex: 1;
+        }
+        .btn-browse {
+            padding: 8px 16px;
+            background-color: var(--vscode-button-secondaryBackground);
+            color: var(--vscode-button-secondaryForeground);
+            border: 1px solid var(--vscode-input-border);
+            border-radius: 2px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-browse:hover {
+            background-color: var(--vscode-button-secondaryHoverBackground);
+        }
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -182,8 +216,11 @@ export class WebviewManager {
         
         <div class="form-group">
             <label for="projectPath">Project Path*</label>
-            <input type="text" id="projectPath" name="projectPath" required 
-                   value="${defaultPath}" placeholder="/path/to/project">
+            <div class="input-with-button">
+                <input type="text" id="projectPath" name="projectPath" required 
+                       value="${defaultPath}" placeholder="/path/to/project">
+                <button type="button" class="btn-browse" onclick="browsePath()">Browse...</button>
+            </div>
         </div>
         
         <div class="form-group">
@@ -248,6 +285,21 @@ export class WebviewManager {
     
     <script>
         const vscode = acquireVsCodeApi();
+        
+        // Handle browse button
+        function browsePath() {
+            vscode.postMessage({
+                command: 'browsePath'
+            });
+        }
+        
+        // Listen for path updates from extension
+        window.addEventListener('message', event => {
+            const message = event.data;
+            if (message.command === 'setPath') {
+                document.getElementById('projectPath').value = message.path;
+            }
+        });
         
         // Show/hide conditional fields based on git option
         function updateGitFields() {

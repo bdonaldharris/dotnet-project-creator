@@ -2,6 +2,18 @@
 
 All notable changes to the ".NET Project Creator" extension will be documented in this file.
 
+## [1.3.0] - 2025-10-08
+
+### Added
+- **Browse Button for Project Path**: Added a "Browse..." button next to the project path input
+  - Opens native folder picker dialog
+  - Makes it easier to select project location without typing
+  - Better user experience for path selection
+
+### Changed
+- Publisher ID changed from `bdonaldharris` to `notablebit` for better branding
+- Updated installation instructions and marketplace links
+
 ## [1.2.0] - 2025-10-08
 
 ### Added
