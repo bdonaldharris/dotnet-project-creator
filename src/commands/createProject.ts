@@ -42,9 +42,15 @@ export class CreateProjectCommand {
                 updateProgress(CreationStepType.VALIDATE);
                 await this.validateConfiguration(options);
 
-                // Step 2: Create project directory
+                // Determine paths based on whether solution is created
+                const solutionRootPath = path.join(options.projectPath, options.projectName);
+                const projectPath = options.createSolution 
+                    ? path.join(solutionRootPath, 'src', options.projectName)
+                    : solutionRootPath;
+                const workspaceRoot = options.createSolution ? solutionRootPath : projectPath;
+
+                // Step 2: Create directory structure
                 updateProgress(CreationStepType.CREATE_DIRECTORY);
-                const projectPath = path.join(options.projectPath, options.projectName);
                 await FileSystemUtils.createDirectory(projectPath);
 
                 // Step 3: Create .NET project
@@ -60,20 +66,20 @@ export class CreateProjectCommand {
                 // Step 4: Create solution (if requested)
                 if (options.createSolution) {
                     updateProgress(CreationStepType.CREATE_SOLUTION);
-                    await dotnetCli.createSolution(options.projectName, projectPath);
+                    await dotnetCli.createSolution(options.projectName, solutionRootPath);
 
                     updateProgress(CreationStepType.ADD_TO_SOLUTION);
-                    const solutionFile = path.join(projectPath, `${options.projectName}.sln`);
+                    const solutionFile = path.join(solutionRootPath, `${options.projectName}.sln`);
                     const projectFile = path.join(projectPath, `${options.projectName}.csproj`);
                     await dotnetCli.addProjectToSolution(solutionFile, projectFile);
                 }
 
                 // Step 5: Create VS Code configuration
                 updateProgress('Creating VS Code configuration...');
-                await vscodeConfigGenerator.createVSCodeConfig(projectPath, options.projectName);
+                await vscodeConfigGenerator.createVSCodeConfig(workspaceRoot, options.projectName);
 
                 // Step 6: Handle Git based on option
-                await this.handleGitSetup(options, projectPath, updateProgress);
+                await this.handleGitSetup(options, workspaceRoot, updateProgress);
 
                 // Step 7: Restore packages
                 updateProgress(CreationStepType.RESTORE_PACKAGES);
@@ -84,11 +90,11 @@ export class CreateProjectCommand {
                 progressPanel.dispose();
 
                 // Show completion panel
-                this.webviewManager.showCompletionPanel(true, projectPath);
+                this.webviewManager.showCompletionPanel(true, workspaceRoot);
 
                 // Open in new window (if requested)
                 if (options.openInNewWindow) {
-                    const uri = vscode.Uri.file(projectPath);
+                    const uri = vscode.Uri.file(workspaceRoot);
                     await vscode.commands.executeCommand('vscode.openFolder', uri, true);
                 }
 
@@ -226,13 +232,13 @@ export class CreateProjectCommand {
             throw new Error('Template ID is required');
         }
 
-        // Check if directory already exists
-        const projectPath = path.join(options.projectPath, options.projectName);
-        const exists = await FileSystemUtils.pathExists(projectPath);
+        // Check if root directory already exists
+        const rootPath = path.join(options.projectPath, options.projectName);
+        const exists = await FileSystemUtils.pathExists(rootPath);
         if (exists) {
-            const isEmpty = await FileSystemUtils.isDirectoryEmpty(projectPath);
+            const isEmpty = await FileSystemUtils.isDirectoryEmpty(rootPath);
             if (!isEmpty) {
-                throw new Error(`Directory ${projectPath} already exists and is not empty`);
+                throw new Error(`Directory ${rootPath} already exists and is not empty`);
             }
         }
     }
