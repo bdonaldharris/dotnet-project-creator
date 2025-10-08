@@ -145,6 +145,29 @@ export class WebviewManager {
             font-size: 0.9em;
             margin-bottom: 20px;
         }
+        .radio-group {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .sub-field {
+            margin-left: 40px;
+            margin-top: 8px;
+            display: none;
+        }
+        .sub-field.visible {
+            display: block;
+        }
+        .hint {
+            color: var(--vscode-descriptionForeground);
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -178,9 +201,37 @@ export class WebviewManager {
             <label for="createSolution">Create solution file</label>
         </div>
         
-        <div class="form-group checkbox-group">
-            <input type="checkbox" id="initializeGit" name="initializeGit" ${gitAutoInit ? 'checked' : ''}>
-            <label for="initializeGit">Initialize Git repository</label>
+        <div class="form-group">
+            <label>Git Repository</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="gitNone" name="gitOption" value="none" ${!gitAutoInit ? 'checked' : ''}>
+                    <label for="gitNone">No Git repository</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="gitLocal" name="gitOption" value="local" ${gitAutoInit ? 'checked' : ''}>
+                    <label for="gitLocal">Local only (git init + commit)</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="gitGitHub" name="gitOption" value="github">
+                    <label for="gitGitHub">Create GitHub repository (requires gh CLI)</label>
+                </div>
+                <div class="sub-field" id="githubOptions">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="gitRepoPublic" name="gitRepoPublic" checked>
+                        <label for="gitRepoPublic">Public repository</label>
+                    </div>
+                    <p class="hint">Requires GitHub CLI installed and authenticated (gh auth login)</p>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" id="gitRemote" name="gitOption" value="remote">
+                    <label for="gitRemote">Push to remote URL</label>
+                </div>
+                <div class="sub-field" id="remoteOptions">
+                    <input type="text" id="gitRemoteUrl" name="gitRemoteUrl" placeholder="https://github.com/user/repo.git">
+                    <p class="hint">Repository must already exist. You may be prompted for credentials.</p>
+                </div>
+            </div>
         </div>
         
         <div class="form-group checkbox-group">
@@ -197,9 +248,25 @@ export class WebviewManager {
     <script>
         const vscode = acquireVsCodeApi();
         
+        // Show/hide conditional fields based on git option
+        function updateGitFields() {
+            const gitOption = document.querySelector('input[name="gitOption"]:checked')?.value;
+            document.getElementById('githubOptions').classList.toggle('visible', gitOption === 'github');
+            document.getElementById('remoteOptions').classList.toggle('visible', gitOption === 'remote');
+        }
+        
+        // Initialize on load
+        updateGitFields();
+        
+        // Update when radio buttons change
+        document.querySelectorAll('input[name="gitOption"]').forEach(radio => {
+            radio.addEventListener('change', updateGitFields);
+        });
+        
         document.getElementById('configForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
+            const gitOption = formData.get('gitOption');
             
             const data = {
                 projectName: formData.get('projectName'),
@@ -207,9 +274,17 @@ export class WebviewManager {
                 templateId: '${template.dotnetTemplate}',
                 framework: formData.get('framework') || undefined,
                 createSolution: formData.get('createSolution') === 'on',
-                initializeGit: formData.get('initializeGit') === 'on',
+                gitOption: gitOption,
+                gitRemoteUrl: gitOption === 'remote' ? formData.get('gitRemoteUrl') : undefined,
+                gitRepoVisibility: gitOption === 'github' && formData.get('gitRepoPublic') === 'on' ? 'public' : 'private',
                 openInNewWindow: formData.get('openInNewWindow') === 'on'
             };
+            
+            // Validate remote URL if needed
+            if (gitOption === 'remote' && !data.gitRemoteUrl) {
+                alert('Please enter a remote repository URL');
+                return;
+            }
             
             vscode.postMessage({
                 command: 'submit',

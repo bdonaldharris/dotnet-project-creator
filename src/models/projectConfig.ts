@@ -10,6 +10,8 @@ export interface ProjectConfig {
     additionalOptions?: Record<string, any>;
 }
 
+export type GitOption = 'none' | 'local' | 'github' | 'remote';
+
 export interface ProjectCreationOptions {
     projectName: string;
     projectPath: string;
@@ -17,6 +19,8 @@ export interface ProjectCreationOptions {
     framework?: string;
     language?: string;
     createSolution?: boolean;
-    initializeGit?: boolean;
+    gitOption?: GitOption;
+    gitRemoteUrl?: string;
+    gitRepoVisibility?: 'public' | 'private';
     openInNewWindow?: boolean;
 }

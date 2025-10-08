@@ -67,15 +67,8 @@ export class CreateProjectCommand {
                     await dotnetCli.addProjectToSolution(solutionFile, projectFile);
                 }
 
-                // Step 5: Initialize Git (if requested)
-                if (options.initializeGit) {
-                    const gitInstalled = await gitUtils.checkInstallation();
-                    if (gitInstalled) {
-                        updateProgress(CreationStepType.INIT_GIT);
-                        await gitUtils.initRepository(projectPath);
-                        await gitUtils.initialCommit(projectPath);
-                    }
-                }
+                // Step 5: Handle Git based on option
+                await this.handleGitSetup(options, projectPath, updateProgress);
 
                 // Step 6: Restore packages
                 updateProgress(CreationStepType.RESTORE_PACKAGES);
@@ -113,10 +106,106 @@ export class CreateProjectCommand {
         if (options.createSolution) {
             steps += 2; // create solution, add to solution
         }
-        if (options.initializeGit) {
-            steps += 1; // init git
+        if (options.gitOption && options.gitOption !== 'none') {
+            steps += options.gitOption === 'github' || options.gitOption === 'remote' ? 2 : 1;
         }
         return steps + 1; // +1 for complete
+    }
+
+    private async handleGitSetup(
+        options: ProjectCreationOptions,
+        projectPath: string,
+        updateProgress: (message: string, status?: 'running' | 'completed' | 'failed') => void
+    ): Promise<void> {
+        const gitOption = options.gitOption || 'none';
+
+        if (gitOption === 'none') {
+            return; // Skip Git entirely
+        }
+
+        // Check if Git is installed
+        const gitInstalled = await gitUtils.checkInstallation();
+        if (!gitInstalled) {
+            vscode.window.showWarningMessage('Git is not installed. Skipping Git initialization.');
+            return;
+        }
+
+        // Initialize local repository for all options
+        updateProgress(CreationStepType.INIT_GIT);
+        await gitUtils.initRepository(projectPath);
+        await gitUtils.setBranchName(projectPath, 'main');
+        await gitUtils.initialCommit(projectPath);
+
+        // Handle remote options
+        if (gitOption === 'github') {
+            await this.handleGitHubSetup(options, projectPath, updateProgress);
+        } else if (gitOption === 'remote') {
+            await this.handleRemoteSetup(options, projectPath, updateProgress);
+        }
+    }
+
+    private async handleGitHubSetup(
+        options: ProjectCreationOptions,
+        projectPath: string,
+        updateProgress: (message: string, status?: 'running' | 'completed' | 'failed') => void
+    ): Promise<void> {
+        updateProgress('Creating GitHub repository...');
+
+        // Check if GitHub CLI is available
+        const ghInstalled = await gitUtils.checkGitHubCLI();
+        if (!ghInstalled) {
+            vscode.window.showErrorMessage(
+                'GitHub CLI (gh) is not installed. Please install it from: https://cli.github.com/'
+            );
+            return;
+        }
+
+        // Check if authenticated
+        const isAuthenticated = await gitUtils.isGitHubCLIAuthenticated();
+        if (!isAuthenticated) {
+            vscode.window.showErrorMessage(
+                'GitHub CLI is not authenticated. Please run: gh auth login'
+            );
+            return;
+        }
+
+        try {
+            const isPublic = options.gitRepoVisibility === 'public';
+            const repoUrl = await gitUtils.createGitHubRepository(
+                projectPath,
+                options.projectName,
+                isPublic,
+                `${options.projectName} - Created with .NET Project Creator`
+            );
+            vscode.window.showInformationMessage(`GitHub repository created: ${repoUrl}`);
+        } catch (error: any) {
+            vscode.window.showErrorMessage(`Failed to create GitHub repository: ${error.message}`);
+        }
+    }
+
+    private async handleRemoteSetup(
+        options: ProjectCreationOptions,
+        projectPath: string,
+        updateProgress: (message: string, status?: 'running' | 'completed' | 'failed') => void
+    ): Promise<void> {
+        if (!options.gitRemoteUrl) {
+            return;
+        }
+
+        updateProgress('Pushing to remote repository...');
+
+        try {
+            await gitUtils.addRemote(projectPath, 'origin', options.gitRemoteUrl);
+            await gitUtils.push(projectPath, 'origin', 'main');
+            vscode.window.showInformationMessage(
+                `Successfully pushed to ${options.gitRemoteUrl}`
+            );
+        } catch (error: any) {
+            vscode.window.showWarningMessage(
+                `Local repository created, but failed to push to remote: ${error.message}. ` +
+                `You can push manually later.`
+            );
+        }
     }
 
     private async validateConfiguration(options: ProjectCreationOptions): Promise<void> {
