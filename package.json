@@ -2,7 +2,7 @@
   "name": "dotnet-project-creator",
   "displayName": ".NET Project Creator",
   "description": "Visual .NET project creation with templates and configuration",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "bdonaldharris",
   "engines": {
     "vscode": "^1.74.0"

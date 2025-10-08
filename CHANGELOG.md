@@ -2,6 +2,29 @@
 
 All notable changes to the ".NET Project Creator" extension will be documented in this file.
 
+## [1.1.0] - 2025-10-08
+
+### Added
+- **Hybrid Git Integration**: Four Git options to fit any workflow
+  - No Git repository
+  - Local only (git init + commit)
+  - Create GitHub repository (via gh CLI)
+  - Push to custom remote URL
+- **GitHub CLI Integration**: Automatic GitHub repository creation and push
+- **NET 9.0 Support**: Added .NET 9.0 as a framework option
+- Comprehensive Git integration documentation (GIT_INTEGRATION.md)
+- Git authentication validation for GitHub CLI
+- Graceful error handling for Git operations
+
+### Changed
+- Replaced simple Git checkbox with flexible radio button options
+- Enhanced UI with conditional fields for Git options
+- Improved error messages for Git-related failures
+
+### Fixed
+- Publisher name issue that prevented extension loading
+- VS Code debug configuration for F5 launch
+
 ## [1.0.0] - 2025-10-08
 
 ### Added

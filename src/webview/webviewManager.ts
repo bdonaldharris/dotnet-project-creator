@@ -190,6 +190,7 @@ export class WebviewManager {
             <label for="framework">Target Framework</label>
             <select id="framework" name="framework">
                 <option value="">Default</option>
+                <option value="net9.0">NET 9.0</option>
                 <option value="net8.0">NET 8.0</option>
                 <option value="net7.0">NET 7.0</option>
                 <option value="net6.0">NET 6.0</option>

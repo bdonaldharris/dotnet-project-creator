@@ -58,9 +58,9 @@ When creating a project, you can configure:
 
 - **Project Name**: The name of your project
 - **Project Path**: Where to create the project
-- **Target Framework**: Choose from NET 8.0, 7.0, or 6.0
+- **Target Framework**: Choose from NET 9.0, 8.0, 7.0, or 6.0
 - **Create Solution**: Whether to create a solution file
-- **Initialize Git**: Automatically initialize a Git repository
+- **Git Repository**: Choose from local-only, GitHub, remote URL, or no Git
 - **Open in New Window**: Open the project in a new VS Code window after creation
 
 ## Extension Settings
