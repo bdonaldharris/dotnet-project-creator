@@ -1,7 +1,4 @@
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
+import { spawn } from 'child_process';
 
 export class CrossPlatformExecutor {
     private isWindows = process.platform === 'win32';
@@ -15,31 +12,36 @@ export class CrossPlatformExecutor {
     }
 
     async executeCommand(command: string, args: string[], cwd?: string): Promise<string> {
-        // Escape arguments that contain spaces or special characters
-        const escapedArgs = args.map(arg => {
-            // If arg contains spaces, quotes, or special chars, wrap in quotes
-            if (arg.includes(' ') || arg.includes('"') || arg.includes("'")) {
-                // Escape existing quotes and wrap in double quotes
-                return `"${arg.replace(/"/g, '\\"')}"`;
-            }
-            return arg;
-        });
-        
-        const fullCommand = `${command} ${escapedArgs.join(' ')}`;
-        try {
-            const { stdout, stderr } = await execAsync(fullCommand, {
+        return new Promise((resolve, reject) => {
+            const child = spawn(command, args, {
                 cwd: cwd,
-                shell: this.isWindows ? 'cmd.exe' : '/bin/bash'
+                shell: false // Use spawn directly without shell to avoid argument parsing issues
             });
-            
-            if (stderr && !stdout) {
-                throw new Error(stderr);
-            }
-            
-            return stdout.trim();
-        } catch (error: any) {
-            throw new Error(`Command failed: ${error.message}`);
-        }
+
+            let stdout = '';
+            let stderr = '';
+
+            child.stdout?.on('data', (data) => {
+                stdout += data.toString();
+            });
+
+            child.stderr?.on('data', (data) => {
+                stderr += data.toString();
+            });
+
+            child.on('close', (code) => {
+                if (code === 0) {
+                    resolve(stdout.trim());
+                } else {
+                    const errorMessage = stderr || stdout || `Command exited with code ${code}`;
+                    reject(new Error(errorMessage));
+                }
+            });
+
+            child.on('error', (error) => {
+                reject(new Error(`Failed to execute command: ${error.message}`));
+            });
+        });
     }
 
     async executeDotNetCommand(args: string[], cwd?: string): Promise<string> {

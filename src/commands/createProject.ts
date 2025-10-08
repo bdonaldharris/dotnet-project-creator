@@ -78,8 +78,16 @@ export class CreateProjectCommand {
                 updateProgress('Creating VS Code configuration...');
                 await vscodeConfigGenerator.createVSCodeConfig(workspaceRoot, options.projectName);
 
-                // Step 6: Handle Git based on option
-                await this.handleGitSetup(options, workspaceRoot, updateProgress);
+                // Step 6: Handle Git based on option (non-fatal)
+                let gitFailed = false;
+                try {
+                    await this.handleGitSetup(options, workspaceRoot, updateProgress);
+                } catch (error: any) {
+                    gitFailed = true;
+                    vscode.window.showWarningMessage(
+                        `Project created but Git setup failed: ${error.message}`
+                    );
+                }
 
                 // Step 7: Restore packages
                 updateProgress(CreationStepType.RESTORE_PACKAGES);
@@ -92,13 +100,23 @@ export class CreateProjectCommand {
                 // Show completion panel
                 this.webviewManager.showCompletionPanel(true, workspaceRoot);
 
-                // Open in new window (if requested)
-                if (options.openInNewWindow) {
+                // Offer to open in new window
+                const openChoice = await vscode.window.showInformationMessage(
+                    gitFailed 
+                        ? `Project ${options.projectName} created successfully! (Git setup had issues)`
+                        : `Project ${options.projectName} created successfully!`,
+                    'Open in New Window',
+                    'Open in Current Window',
+                    'Close'
+                );
+
+                if (openChoice === 'Open in New Window') {
                     const uri = vscode.Uri.file(workspaceRoot);
                     await vscode.commands.executeCommand('vscode.openFolder', uri, true);
+                } else if (openChoice === 'Open in Current Window') {
+                    const uri = vscode.Uri.file(workspaceRoot);
+                    await vscode.commands.executeCommand('vscode.openFolder', uri, false);
                 }
-
-                vscode.window.showInformationMessage(`Project ${options.projectName} created successfully!`);
 
             } catch (error: any) {
                 updateProgress(`Error: ${error.message}`, 'failed');
