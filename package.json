@@ -20,6 +20,8 @@
     "scaffolding"
   ],
   "activationEvents": [
+    "onView:dotnetProjectCreator",
+    "onCommand:dotnetCreator.createProject",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
@@ -44,7 +46,9 @@
       "explorer": [
         {
           "id": "dotnetProjectCreator",
-          "name": ".NET Project Creator"
+          "name": ".NET Project Creator",
+          "icon": "$(terminal)",
+          "contextualTitle": ".NET Project Creator"
         }
       ]
     },
