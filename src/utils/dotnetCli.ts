@@ -27,13 +27,27 @@ export class DotNetCli {
         }
     }
 
+    private getTemplateForFramework(templateName: string, framework?: string): string {
+        // Map old Blazor templates to new unified template for .NET 8+
+        if (framework && (framework === 'net8.0' || framework === 'net9.0')) {
+            if (templateName === 'blazorserver' || templateName === 'blazorwasm') {
+                return 'blazor';
+            }
+        }
+        return templateName;
+    }
+
     async createProject(
         templateName: string,
         projectName: string,
         outputPath: string,
         options?: Record<string, string>
     ): Promise<void> {
-        const args = ['new', templateName, '-n', projectName, '-o', outputPath];
+        // Get the appropriate template based on framework version
+        const framework = options?.framework;
+        const actualTemplate = this.getTemplateForFramework(templateName, framework);
+        
+        const args = ['new', actualTemplate, '-n', projectName, '-o', outputPath];
         
         if (options) {
             for (const [key, value] of Object.entries(options)) {
