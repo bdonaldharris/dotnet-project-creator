@@ -44,9 +44,13 @@ export class CreateProjectCommand {
                 await this.validateConfiguration(options);
 
                 // Determine paths based on whether solution is created
+                // Desired layout when creating a solution:
+                // <chosen path>/<ProjectName>/                    -> solution root
+                //   <ProjectName>.sln
+                //   <ProjectName>/<ProjectName>.csproj            -> project under a subfolder matching the project name
                 const solutionRootPath = path.join(options.projectPath, options.projectName);
-                const projectPath = options.createSolution 
-                    ? path.join(solutionRootPath, 'src', options.projectName)
+                const projectPath = options.createSolution
+                    ? path.join(solutionRootPath, options.projectName)
                     : solutionRootPath;
                 const workspaceRoot = options.createSolution ? solutionRootPath : projectPath;
 
@@ -74,6 +78,7 @@ export class CreateProjectCommand {
                     const projectFile = path.join(projectPath, `${options.projectName}.csproj`);
                     await dotnetCli.addProjectToSolution(solutionFile, projectFile);
                 }
+
 
                 // Step 5: Create VS Code configuration
                 updateProgress('Creating VS Code configuration...');
@@ -290,6 +295,7 @@ export class CreateProjectCommand {
         if (!options.templateId || options.templateId.trim() === '') {
             throw new Error('Template ID is required');
         }
+
 
         // Check if root directory already exists
         const rootPath = path.join(options.projectPath, options.projectName);

@@ -35,11 +35,11 @@
     "project-creator",
     "dotnet-cli"
   ],
-  "activationEvents": [
-    "onView:dotnetProjectCreator",
-    "onCommand:dotnetCreator.createProject",
-    "onStartupFinished"
-  ],
+    "activationEvents": [
+      "onView:dotnetProjectCreator",
+      "onCommand:dotnetCreator.createProject",
+      "onStartupFinished"
+    ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [

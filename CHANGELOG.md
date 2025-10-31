@@ -100,6 +100,12 @@ All notable changes to the ".NET Project Creator" extension will be documented i
 
 ## [Unreleased]
 
+### Changed
+- Solution layout: when "Create solution" is selected, the project is placed in a nested folder named after the project, and the solution file is at the solution root. Structure:
+  - <chosen path>/<ProjectName>/.sln
+  - <chosen path>/<ProjectName>/<ProjectName>/<ProjectName>.csproj
+  - Removed the previous extra 'src' nesting level.
+
 ### Planned Features
 - Custom template support
 - Template favorites system

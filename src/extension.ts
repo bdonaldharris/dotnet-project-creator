@@ -96,6 +96,7 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     );
 
+
     // Add to subscriptions
     context.subscriptions.push(
         treeView,
