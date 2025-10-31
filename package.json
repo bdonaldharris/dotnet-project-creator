@@ -2,7 +2,7 @@
   "name": "dotnet-project-creator",
   "displayName": ".NET Scaffolder by NotableBit",
   "description": "Scaffold .NET projects with templates, Git integration, and interactive configuration",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "publisher": "notablebit",
   "icon": "icon.png",
   "repository": {
