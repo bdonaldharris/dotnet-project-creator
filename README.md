@@ -1,6 +1,6 @@
 # .NET Scaffolder by NotableBit
 
-[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/bdonaldharris/dotnet-project-creator)
+[![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com/bdonaldharris/dotnet-project-creator)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.74.0+-007ACC.svg)](https://code.visualstudio.com/)
 [![.NET](https://img.shields.io/badge/.NET-6.0%20|%207.0%20|%208.0%20|%209.0-512BD4.svg)](https://dotnet.microsoft.com/)
@@ -379,7 +379,13 @@ This extension is licensed under the [MIT License](LICENSE).
 
 ## 📝 Release Notes
 
-### v1.3.0 (Latest)
+### v1.4.0 (Latest)
+- 🗂️ Simplified solution layout when "Create solution" is selected:
+  - <chosen path>/<ProjectName>/.sln at the solution root
+  - <chosen path>/<ProjectName>/<ProjectName>/<ProjectName>.csproj nested under a same-named folder
+  - Removed the previous extra 'src' nesting level
+
+### v1.3.0
 - 📂 Browse button for easy project path selection
 - 🏷️ Publisher rebranded to "notablebit"
 
