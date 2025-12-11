@@ -2,7 +2,7 @@
   "name": "dotnet-project-creator",
   "displayName": ".NET Scaffolder by NotableBit",
   "description": "Scaffold .NET projects with templates, Git integration, and interactive configuration",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "publisher": "notablebit",
   "icon": "icon.png",
   "repository": {
@@ -35,11 +35,11 @@
     "project-creator",
     "dotnet-cli"
   ],
-    "activationEvents": [
-      "onView:dotnetProjectCreator",
-      "onCommand:dotnetCreator.createProject",
-      "onStartupFinished"
-    ],
+  "activationEvents": [
+    "onView:dotnetProjectCreator",
+    "onCommand:dotnetCreator.createProject",
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
