@@ -11,6 +11,7 @@ vsc-extension-quickstart.md
 node_modules/**
 .git/**
 .github/**
+.specify/**
 *.vsix
 DEVELOPMENT.md
 icon.svg
