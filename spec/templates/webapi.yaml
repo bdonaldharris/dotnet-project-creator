@@ -1,0 +1,38 @@
+template:
+  id: "webapi"
+  displayName: "Web API"
+  category: "Web"
+  cli:
+    command: "dotnet new webapi"
+    args:
+      - name: "framework"
+        flag: "--framework"
+        required: true
+      - name: "name"
+        flag: "--name"
+        required: true
+  parameters:
+    projectName:
+      type: string
+      required: true
+    framework:
+      type: enum
+      values: ["net6.0", "net7.0", "net8.0", "net9.0"]
+      default: "net8.0"
+    createSolution:
+      type: boolean
+      default: true
+    gitMode:
+      type: enum
+      values: ["local", "github", "remote", "none"]
+      default: "local"
+    remoteUrl:
+      type: string
+      requiredIf: gitMode == "remote"
+  postProcessing:
+    - action: "createSolution"
+      enabledIf: createSolution == true
+    - action: "initializeGit"
+      mode: gitMode
+    - action: "openInNewWindow"
+      enabled: true
