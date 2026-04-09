@@ -1,0 +1,31 @@
+template:
+  id: "console"
+  displayName: "Console App"
+  category: "Console"
+  cli:
+    command: "dotnet new console"
+    args:
+      - name: "framework"
+        flag: "--framework"
+        required: true
+      - name: "name"
+        flag: "--name"
+        required: true
+  parameters:
+    projectName:
+      type: string
+      required: true
+    framework:
+      type: enum
+      values: ["net6.0", "net7.0", "net8.0", "net9.0"]
+      default: "net8.0"
+    createSolution:
+      type: boolean
+      default: false
+    gitMode:
+      type: enum
+      values: ["local", "github", "remote", "none"]
+      default: "none"
+  postProcessing:
+    - action: "initializeGit"
+      mode: gitMode
