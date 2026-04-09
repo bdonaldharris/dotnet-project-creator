@@ -1,0 +1,25 @@
+template:
+  id: string
+  displayName: string
+  category: string
+
+  cli:
+    command: string
+    args:
+      - name: string
+        flag: string
+        required: boolean
+
+  parameters:
+    <paramName>:
+      type: string | enum | boolean
+      required?: boolean
+      default?: any
+      values?: string[]
+      requiredIf?: string
+
+  postProcessing:
+    - action: string
+      enabled?: boolean
+      enabledIf?: string
+      mode?: string

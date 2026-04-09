@@ -7,6 +7,32 @@
 - Feature branches should target `staging`.
 - Promotion to production should happen through a pull request from `staging` into `main`.
 
+## Development Workflow
+
+Use `staging` as the clean branch you branch from, not as a branch for direct feature work.
+
+Typical flow:
+
+1. Update your local `staging`.
+2. Create a feature branch from `staging`.
+3. Commit and push the feature branch.
+4. Open a pull request from the feature branch into `staging`.
+5. After validation, open a promotion pull request from `staging` into `main`.
+
+Example:
+
+```bash
+git checkout staging
+git pull origin staging
+git checkout -b feature/my-change
+
+# make changes
+
+git add .
+git commit -m "Describe the change"
+git push -u origin feature/my-change
+```
+
 ## CI
 
 The GitHub Actions workflow in `.github/workflows/ci.yml` runs on pushes and pull requests for `main` and `staging`.
