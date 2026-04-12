@@ -124,13 +124,34 @@
     "@types/node": "16.x",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.28.0",
+    "eslint": "^8.57.1",
     "typescript": "^4.9.4",
     "@vscode/test-electron": "^2.2.0",
     "@vscode/vsce": "^3.6.0"
   },
   "overrides": {
     "undici": "^7.24.0",
-    "qs": "^6.14.2"
+    "qs": "^6.14.2",
+    "flat-cache": {
+      "flatted": "^3.4.2"
+    },
+    "@vscode/vsce": {
+      "minimatch": "^3.1.5",
+      "glob": {
+        "minimatch": "^10.2.5"
+      }
+    },
+    "eslint": {
+      "minimatch": "^3.1.5"
+    },
+    "@eslint/eslintrc": {
+      "minimatch": "^3.1.5"
+    },
+    "@humanwhocodes/config-array": {
+      "minimatch": "^3.1.5"
+    },
+    "glob@7": {
+      "minimatch": "^3.1.5"
+    }
   }
 }
