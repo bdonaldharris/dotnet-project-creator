@@ -2,7 +2,7 @@
 
 All notable changes to the ".NET Project Creator" extension will be documented in this file.
 
-## [Unreleased]
+## [1.5.0] - 2026-04-12
 
 ### Added
 - **NET 10.0 Support**: Added .NET 10.0 as a framework option across the scaffold flow and documentation
