@@ -15,9 +15,13 @@ Typical flow:
 
 1. Update your local `staging`.
 2. Create a feature branch from `staging`.
-3. Commit and push the feature branch.
-4. Open a pull request from the feature branch into `staging`.
-5. After validation, open a promotion pull request from `staging` into `main`.
+3. Implement the change and update user-facing docs as part of completion work.
+4. Check whether `README.md` should change whenever an issue affects supported features, workflows, framework versions, configuration, or setup expectations.
+5. Commit and push the feature branch.
+6. Open a pull request from the feature branch into `staging`.
+7. After validation, open a promotion pull request from `staging` into `main`.
+
+For completed issues, treat `README.md` review as part of the definition of done, alongside any needed `CHANGELOG.md` or other documentation updates.
 
 Example:
 
