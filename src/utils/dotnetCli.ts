@@ -29,7 +29,7 @@ export class DotNetCli {
 
     private getTemplateForFramework(templateName: string, framework?: string): string {
         // Map old Blazor templates to new unified template for .NET 8+
-        if (framework && (framework === 'net8.0' || framework === 'net9.0')) {
+        if (framework && (framework === 'net8.0' || framework === 'net9.0' || framework === 'net10.0')) {
             if (templateName === 'blazorserver' || templateName === 'blazorwasm') {
                 return 'blazor';
             }

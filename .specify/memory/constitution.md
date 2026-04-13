@@ -76,7 +76,7 @@ Telemetry is anonymous and respects VS Code's global telemetry settings. No sour
 - **Unit tests** for utils (filesystem, dotnet CLI wrappers) where feasible
 - **Manual validation matrix** per release:
   - Platforms: macOS, Windows, Linux
-  - .NET versions: 6.0, 7.0, 8.0, 9.0
+  - .NET versions: 6.0, 7.0, 8.0, 9.0, 10.0
   - Key templates: Console, Web API, Blazor, xUnit, Class Library
 - Test **Git workflows** (local, GitHub CLI, custom remote, none)
 
@@ -114,4 +114,4 @@ This constitution documents the project's design philosophy and technical constr
 2. Approval from maintainer(s)
 3. Update to this document with rationale
 
-**Version**: 1.0.0 | **Ratified**: 2025-12-08 | **Last Amended**: 2025-12-08
+**Version**: 1.0.1 | **Ratified**: 2025-12-08 | **Last Amended**: 2026-04-12
