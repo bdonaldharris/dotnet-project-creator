@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com/bdonaldharris/dotnet-project-creator)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.74.0+-007ACC.svg)](https://code.visualstudio.com/)
-[![.NET](https://img.shields.io/badge/.NET-6.0%20|%207.0%20|%208.0%20|%209.0-512BD4.svg)](https://dotnet.microsoft.com/)
+[![.NET](https://img.shields.io/badge/.NET-6.0%20|%207.0%20|%208.0%20|%209.0%20|%2010.0-512BD4.svg)](https://dotnet.microsoft.com/)
 
 > **Scaffold .NET projects with ease! An intuitive VS Code extension featuring tree view templates, interactive configuration, and hybrid Git integration.**
 
@@ -49,7 +49,7 @@ Create Console apps, Web APIs, Blazor applications, class libraries, and test pr
   - Custom remote URLs
   - No Git (for those who prefer otherwise)
 - 🎨 **12+ Templates** - Covering Console, Web, Blazor, Libraries, and Test projects
-- 🎯 **Framework Flexibility** - Support for .NET 6.0, 7.0, 8.0, and 9.0
+- 🎯 **Framework Flexibility** - Support for .NET 6.0, 7.0, 8.0, 9.0, and 10.0
 - 🔒 **Privacy-First Telemetry** - Anonymous usage analytics (respects VS Code settings)
 
 ---
@@ -89,7 +89,7 @@ npm run compile
 5. Fill in your project details:
    - Project name
    - Target path
-   - Framework version (.NET 6.0 - 9.0)
+   - Framework version (.NET 6.0 - 10.0)
    - Git integration option
 6. Click **Create Project** and watch the magic happen! ✨
 
@@ -110,7 +110,7 @@ When creating a project, customize these settings:
 |--------|-------------|----------|
 | **Project Name** | Your project's identifier | Any valid .NET project name |
 | **Project Path** | Where to create the project | Any writable directory |
-| **Target Framework** | .NET version to target | 6.0, 7.0, 8.0, 9.0 |
+| **Target Framework** | .NET version to target | 6.0, 7.0, 8.0, 9.0, 10.0 |
 | **Create Solution** | Generate a solution file | Yes / No |
 | **Git Integration** | Repository initialization | Local, GitHub, Remote, None |
 | **GitHub Visibility** | Public or private repo | Public / Private (if using GitHub) |
@@ -378,6 +378,9 @@ This extension is licensed under the [MIT License](LICENSE).
 ---
 
 ## 📝 Release Notes
+
+### Unreleased
+- 🔧 .NET 10.0 support
 
 ### v1.4.0 (Latest)
 - 🗂️ Simplified solution layout when "Create solution" is selected:

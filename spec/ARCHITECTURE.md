@@ -59,7 +59,7 @@ Template:
   parameters:
     - name: "framework"
       type: "enum"
-      values: ["net6.0", "net7.0", "net8.0", "net9.0"]
+      values: ["net6.0", "net7.0", "net8.0", "net9.0", "net10.0"]
     - name: "solution"
       type: "boolean"
     - name: "gitMode"
@@ -116,7 +116,7 @@ ConfigSchema:
       required: true
     framework:
       type: enum
-      values: ["6.0", "7.0", "8.0", "9.0"]
+      values: ["6.0", "7.0", "8.0", "9.0", "10.0"]
     createSolution:
       type: boolean
     gitMode:

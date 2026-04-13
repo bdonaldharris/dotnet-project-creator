@@ -2,6 +2,15 @@
 
 All notable changes to the ".NET Project Creator" extension will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **NET 10.0 Support**: Added .NET 10.0 as a framework option across the scaffold flow and documentation
+- Updated Blazor template mapping to treat .NET 10.0 like the unified .NET 8+ template path
+
+### Changed
+- Updated spec and architecture examples to include .NET 10.0 in supported framework lists
+
 ## [1.4.0] - 2025-10-31
 
 ### Changed
